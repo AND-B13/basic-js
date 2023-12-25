@@ -16,13 +16,14 @@ class DepthCalculator {
   calculateDepth(arr) {
     if (!Array.isArray(arr)) return 0;
 
-    let maxDeoth = 1;
+    let maxDepth = 1;
+    
     for (let i = 0; i < arr.length; i++) {
       const depth = this.calculateDepth(arr[i]) + 1;
-      maxDeoth = Math.max(maxDeoth, depth);
+      maxDepth = Math.max(maxDepth, depth);
     }
 
-    return maxDeoth;
+    return maxDepth;
   }
 }
 
