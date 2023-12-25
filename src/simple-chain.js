@@ -12,18 +12,22 @@ const chainMaker = {
   },
 
   addLink(value) {
-    this.chainArr.push(value);
+    const link = value !== undefined ? `( ${value} )` : '(  )';
+    this.chainArr.push(link);
     return this;
   },
 
   removeLink(position) {
     if (
+      typeof position !== 'number' ||
       position < 1 ||
       position > this.chainArr.length ||
       !Number.isInteger(position)
     ) {
       this.chainArr = [];
+      throw new Error("You can't remove incorrect link!");
     }
+    
     this.chainArr.splice(position - 1, 1);
     return this;
   },
@@ -34,11 +38,9 @@ const chainMaker = {
   },
 
   finishChain() {
-    const result = this.chainArr
-      .map((link) => `( ${link} )`)
-      .join("~~");
+    const chainString = this.chainArr.join('~~');
     this.chainArr = [];
-    return result;
+    return chainString;
   },
 };
 

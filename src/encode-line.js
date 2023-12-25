@@ -11,9 +11,9 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function encodeLine(str) {
-  let encodedStr = '';
   let count = 1;
-
+  let encodedStr = '';
+  
   for (let i = 1; i <= str.length; i++) {
     if (str[i] === str[i - 1]) {
       count++;

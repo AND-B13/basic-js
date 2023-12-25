@@ -20,50 +20,62 @@ const { NotImplementedError } = require('../extensions/index.js');
  * 
  */
 class VigenereCipheringMachine {
-  constructor(reverse = true) {
-    this.reverse = reverse;
+  constructor(encryptDirection = true) {
+    this.encryptDirection = encryptDirection;
   }
 
-  encrypt(message, keyword) {
-    const mes = message.toUpperCase();
-    const keyWord = keyword.toUpperCase();
-    let result = '';
+  encrypt(message, key) {
+    if (!message || !key) {
+      throw new Error('Incorrect arguments!');
+    }
 
-    for (let i = 0, j = 0; i < mes.length; i++) {
-      if (mes[i].match(/[A-Z]/)) {
-        const messageCharCode = mes[i].charCodeAt(0) - 65;
-        const keywordCharCode = keyWord[j % keyWord.length].charCodeAt(0) - 65;
-        const encryptedCharCode = (messageCharCode + keywordCharCode) % 26;
-        const encryptedChar = String.fromCharCode(encryptedCharCode + 65);
-        result += encryptedChar;
-        j++;
+    let encryptedMessage = '';
+    let index = 0;
+
+    message = message.toUpperCase();
+    key = key.toUpperCase();
+
+    for (let i = 0; i < message.length; i++) {
+      if (message[i].match(/[A-Z]/)) {
+        const messageCharCode = message.charCodeAt(i) - 65;
+        const keyCharCode = key.charCodeAt(index % key.length) - 65;
+        const encryptedCharCode = (messageCharCode + keyCharCode) % 26 + 65;
+        
+        encryptedMessage += String.fromCharCode(encryptedCharCode);
+        index++;
       } else {
-        result += mes[i];
+        encryptedMessage += message[i];
       }
     }
 
-    return this.reverse ? result : result.split('').reverse().join('');
+    return this.encryptDirection ? encryptedMessage : encryptedMessage.split('').reverse().join('');
   }
 
-  decrypt(ciphertext, keyword) {
-    const cipherText = ciphertext.toUpperCase();
-    const keyWord = keyword.toUpperCase();
-    let result = '';
+  decrypt(encryptedMessage, key) {
+    if (!encryptedMessage || !key) {
+      throw new Error('Incorrect arguments!');
+    }
 
-    for (let i = 0, j = 0; i < cipherText.length; i++) {
-      if (cipherText[i].match(/[A-Z]/)) {
-        const cipherTextCharCode = cipherText[i].charCodeAt(0) - 65;
-        const keyWordCharCode = keyWord[j % keyWord.length].charCodeAt(0) - 65;
-        const decryptedCharCode = (cipherTextCharCode - keyWordCharCode + 26) % 26;
-        const decryptedChar = String.fromCharCode(decryptedCharCode + 65);
-        result += decryptedChar;
-        j++;
+    let decryptedMessage = '';
+    let index = 0;
+
+    encryptedMessage = encryptedMessage.toUpperCase();
+    key = key.toUpperCase();
+
+    for (let i = 0; i < encryptedMessage.length; i++) {
+      if (encryptedMessage[i].match(/[A-Z]/)) {
+        const encryptedCharCode = encryptedMessage.charCodeAt(i) - 65;
+        const keyCharCode = key.charCodeAt(index % key.length) - 65;
+        const decryptedCharCode = (encryptedCharCode - keyCharCode + 26) % 26 + 65;
+
+        decryptedMessage += String.fromCharCode(decryptedCharCode);
+        index++;
       } else {
-        result += cipherText[i];
+        decryptedMessage += encryptedMessage[i];
       }
     }
 
-    return this.reverse ? result : result.split('').reverse().join('');
+    return this.encryptDirection ? decryptedMessage : decryptedMessage.split('').reverse().join('');
   }
 }
 

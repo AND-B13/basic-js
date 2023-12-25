@@ -23,6 +23,7 @@ function countCats(matrix) {
   //     }
   //   }
   // })
+  
   matrix.forEach(arr => {
     arr.forEach(el => {
       if(el === '^^') {

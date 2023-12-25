@@ -19,19 +19,18 @@ function renameFiles(names) {
   const unique = new Set();
   const renamed = [];
 
-  for (const name of names) {
+  names.forEach(name => {
     let newName = name;
     let suffix = 1;
 
-    while (unique.has(newName)) {
+    for (;unique.has(newName);) {
       newName = `${name}(${suffix})`;
       suffix++;
     }
 
     unique.add(newName);
     renamed.push(newName);
-  }
-
+  })
   return renamed;
 }
 

@@ -16,6 +16,30 @@ const { NotImplementedError } = require('../extensions/index.js');
  *
  */
 function repeater(str, options) {
+  // let repeatTimes = 1;
+  // let separator = '+';
+  // let addition = '';
+  // let additionRepeatTimes = 1;
+  // let additionSeparator = '|';
+
+  // if (options) {
+  //   if (options.repeatTimes !== undefined) {
+  //     repeatTimes = options.repeatTimes;
+  //   }
+  //   if (options.separator !== undefined) {
+  //     separator = options.separator;
+  //   }
+  //   if (options.addition !== undefined) {
+  //     addition = options.addition;
+  //   }
+  //   if (options.additionRepeatTimes !== undefined) {
+  //     additionRepeatTimes = options.additionRepeatTimes;
+  //   }
+  //   if (options.additionSeparator !== undefined) {
+  //     additionSeparator = options.additionSeparator;
+  //   }
+  // }
+
   const {
     repeatTimes = 1,
     separator = '+',

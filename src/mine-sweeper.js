@@ -24,9 +24,9 @@ const { NotImplementedError } = require('../extensions/index.js');
  * ]
  */
 function minesweeper(matrix) {
+  const result = [];
   const rows = matrix.length;
   const cols = matrix[0].length;
-  const result = [];
 
   for (let i = 0; i < rows; i++) {
     result.push([]);
